@@ -1,0 +1,12 @@
+fastapi[standard]
+uvicorn
+pandas
+python-multipart
+openpyxl
+agno
+openai
+googlesearch-python
+pycountry
+beautifulsoup4
+lxml
+ddgs

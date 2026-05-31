@@ -1,0 +1,81 @@
+{
+  "info": {
+    "name": "API IA Dados",
+    "description": "Coleção para testar os endpoints da API IA Dados",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Encontrar CNPJ (com IA)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pergunta\": \"Qual o CNPJ da empresa XYZ?\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/encontrar_cnpj",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["encontrar_cnpj"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pesquisa Web",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pergunta\": \"Quem foi Alan Turing?\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/pesquisa_web",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["pesquisa_web"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Encontrar CNPJ (sem IA)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pergunta\": \"Qual o CNPJ da empresa ABC?\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/encontrar_cnpj_sem_ia",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["encontrar_cnpj_sem_ia"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
