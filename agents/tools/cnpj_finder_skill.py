@@ -29,8 +29,8 @@ class CNPJFinderSkill(Toolkit):
         if not nome_limpo:
             return []
 
-        query = f"CNPJ {nome_limpo}"
-        resultados = buscar(query, max_results=20)
+        query = f"{nome_limpo} CNPJ"
+        resultados = buscar(query, max_results=3)
         contexto = "\n".join(
             [
                 f"{r.get('title','')}"

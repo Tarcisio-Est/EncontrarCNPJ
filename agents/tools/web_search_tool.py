@@ -31,7 +31,7 @@ def _extrair_texto(elemento) -> str:
     return elemento.get_text(separator=" ", strip=True) if elemento else ""
 
 
-def _buscar_yahoo(query: str, max_results: int = 20) -> List[Dict[str, str]]:
+def _buscar_yahoo(query: str, max_results: int = 3) -> List[Dict[str, str]]:
     """Busca no Yahoo Search."""
     logger.info(f"[Yahoo] Query: {query} | max_results: {max_results}")
     resultados: List[Dict[str, str]] = []
@@ -87,7 +87,7 @@ def _buscar_ddg(query: str, max_results: int = 3) -> List[Dict[str, str]]:
                     f'"{query}" site:cnpj.biz',
                 
                 region="br-pt",
-                max_results=20,
+                max_results=3,
                 backend="Google"
             )
             for r in results:
