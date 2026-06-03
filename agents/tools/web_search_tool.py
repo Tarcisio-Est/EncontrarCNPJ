@@ -80,15 +80,10 @@ def _buscar_ddg(query: str, max_results: int = 3) -> List[Dict[str, str]]:
     try:
         with DDGS() as ddgs:
             results = ddgs.text(
-                query = 
-                    #f'"{query}" ',
-                    #f'{query}',
-                    #f'"{query}" Receita Federal',
-                    f'"{query}" site:cnpj.biz',
-                
+                query=query,
                 region="br-pt",
                 max_results=3,
-                backend="Google"
+                backend="Yahoo"
             )
             for r in results:
                 resultados.append({
