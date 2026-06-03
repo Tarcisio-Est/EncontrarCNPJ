@@ -23,8 +23,6 @@ def limpar_nome_empresa(empresa: str) -> str:
     
     return empresa.strip()
 
-
-
 def extrair_CNPJ_sem_ia(empresa: str) -> list:
     empresa = limpar_nome_empresa(empresa)
     query = f"CNPJ {empresa}"

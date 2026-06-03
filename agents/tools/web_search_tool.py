@@ -73,42 +73,7 @@ def _buscar_yahoo(query: str, max_results: int = 20) -> List[Dict[str, str]]:
     logger.info(f"Busca Yahoo retornou {len(resultados)} resultados para: {query}")
     return resultados
 
-
-def _buscar_bing(query: str, max_results: int = 20) -> List[Dict[str, str]]:
-    """Busca no Bing Search como fallback."""
-    print(f"[Bing] Query: {query} | max_results: {max_results}")
-    resultados: List[Dict[str, str]] = []
-    try:
-        with httpx.Client(verify=False, headers=HEADERS, timeout=15) as client:
-            params = {"q": query, "count": max_results}
-            response = client.get(BING_SEARCH_URL, params=params)
-            response.raise_for_status()
-    except Exception as e:
-        logger.warning(f"Falha na busca Bing: {e}")
-        return resultados
-
-    soup = BeautifulSoup(response.text, "lxml")
-
-    for item in soup.select("li.b_algo"):
-        title_elem = item.select_one("h2 a")
-        snippet_elem = item.select_one("p")
-
-        title = _extrair_texto(title_elem)
-        url = title_elem.get("href", "") if title_elem else ""
-        snippet = _extrair_texto(snippet_elem)
-
-        if title or snippet:
-            resultados.append({
-                "title": title,
-                "url": url,
-                "snippet": snippet,
-            })
-
-    logger.info(f"Busca Bing retornou {len(resultados)} resultados para: {query}")
-    return resultados
-
-
-def _buscar_ddg(query: str, max_results: int = 20) -> List[Dict[str, str]]:
+def _buscar_ddg(query: str, max_results: int = 3) -> List[Dict[str, str]]:
     """Busca no DuckDuckGo como último fallback."""
     print(f"[DDG] Query: {query} | max_results: {max_results}, Aq")
     resultados: List[Dict[str, str]] = []
@@ -139,7 +104,7 @@ def _buscar_ddg(query: str, max_results: int = 20) -> List[Dict[str, str]]:
     return resultados
 
 
-def buscar(query: str, max_results: int = 20) -> List[Dict[str, str]]:
+def buscar(query: str, max_results: int = 3) -> List[Dict[str, str]]:
     """
     Realiza busca web direta via scraping.
     Tenta Yahoo primeiro, cai para DDG se falhar.
@@ -152,6 +117,6 @@ def buscar(query: str, max_results: int = 20) -> List[Dict[str, str]]:
 
     logger.info("Yahoo sem resultados, tentando DDG...")
     time.sleep(1.5)
-    resultados = _buscar_ddg(query, 20)
+    resultados = _buscar_ddg(query, max_results)
 
     return resultados

@@ -7,7 +7,7 @@ import io
 
 router = APIRouter()
 
-@router.post("/encontrar_cnpj_sem_ia")
+@router.post("/encontrar_cnpj")
 def encontrar_cnpj(pergunta: Pergunta):
     resultado = resolver_cnpj(pergunta.pergunta)
     return {
@@ -17,9 +17,8 @@ def encontrar_cnpj(pergunta: Pergunta):
     }
 
 
-@router.post("/encontrar_cnpj_sem_ia/arquivo")
+@router.post("/encontrar_cnpj/arquivo")
 def encontrar_cnpj_por_arquivo(arquivo: UploadFile = File(...)):
-    # Valida extensão
     nome = arquivo.filename or ""
     extensao = nome.lower().split(".")[-1] if "." in nome else ""
     if extensao not in ("csv", "xlsx", "xls"):
@@ -35,7 +34,6 @@ def encontrar_cnpj_por_arquivo(arquivo: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Erro ao ler arquivo: {e}")
 
-    # Encontra coluna razao social (variações de nome)
     coluna_alvo = None
     for col in df.columns:
         col_norm = str(col).strip().lower().replace("_", " ").replace("ã", "a")
